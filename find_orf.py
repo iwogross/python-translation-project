@@ -53,8 +53,8 @@ def vet_nucleotide_sequence(sequence):
     # any valid RNA and DNA sequence strings, respectively (and only strings of
     # RNA and DNA bases).
     # Read the docstring above for additional clues.
-    rna_pattern_str = r'^[AUCGaucg]+$'
-    dna_pattern_str = r'^[ATCGatcg]+$'
+    rna_pattern_str = r'^[AUCGaucg]*$'
+    dna_pattern_str = r'^[ATCGatcg]*$'
     ##########################################################################
 
     rna_pattern = re.compile(rna_pattern_str)
@@ -195,7 +195,9 @@ def find_first_orf(sequence,
     # exactly. Change `orf_pattern_str` so that it will match any open reading
     # frame.
     # Read the docstring above for additional clues.
-    orf_pattern_str = r'AUGGUAUAA'
+    orf_pattern_str = r'(' + r'|'.join(starts) + r')([AUCG]{3})*('+ r'|'.join(stops)+r')'
+    # orf_pattern_str = r'AUG'+r'([AUCG]{3})*('+ r'UAA|UGA|UAG' +r')'
+    #UAA UGA UAG
     ##########################################################################
 
     # Create the regular expression object
